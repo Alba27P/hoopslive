@@ -1,21 +1,21 @@
 name: Build APK
 on: [push, workflow_dispatch]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Build APK
+      - name: Build APK and publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          git clone --depth 1 "https://github.com/${GITHUB_REPOSITORY}.git" src
+          cd src
           export JAVA_HOME="$JAVA_HOME_17_X64"
-          f=$(find . -name settings.gradle.kts -not -path './.git/*' | head -n1)
-          cd "$(dirname "$f")"
           chmod +x ./gradlew
           ./gradlew --no-daemon assembleDebug
-          mkdir -p "$GITHUB_WORKSPACE/out"
-          cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/out/HoopsLive-debug.apk"
-          ./gradlew --no-daemon assembleRelease && cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/out/HoopsLive.apk" || echo "Release build failed, debug APK still available"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: HoopsLive-apk
-          path: out/*.apk
+          mkdir -p out
+          cp app/build/outputs/apk/debug/app-debug.apk out/HoopsLive-debug.apk
+          ./gradlew --no-daemon assembleRelease && cp app/build/outputs/apk/release/app-release.apk out/HoopsLive.apk || echo "Release build failed, debug APK still available"
+          gh release create "build-${GITHUB_RUN_NUMBER}" out/*.apk --repo "$GITHUB_REPOSITORY" --title "Hoops Live build ${GITHUB_RUN_NUMBER}" --notes "Automatic APK build from ${GITHUB_SHA::7}" --latest

@@ -55,7 +55,7 @@ import com.hoopslive.app.ui.components.TeamLogo
 import com.hoopslive.app.ui.rememberLoad
 import com.hoopslive.app.ui.theme.LiveRed
 
-private val TABS = listOf("Box Score", "Team Stats", "Play-by-Play", "Info")
+private val TABS = listOf("Box Score", "Team Stats", "Plays", "Info")
 
 @Composable
 fun GameScreen(
@@ -113,15 +113,33 @@ private fun ScoreHeader(d: GameDetail, onTeam: (String) -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             HeaderTeam(g.away, Modifier.weight(1f), onTeam)
-            Column(Modifier.weight(1.2f), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.weight(1.5f), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (g.state == GameState.PRE) {
                     Text(Fmt.localDay(g.date), style = MaterialTheme.typography.labelLarge)
                     Text(Fmt.localTime(g.date), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
                 } else {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(g.away.score ?: "-", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
-                        Text("  –  ", style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text(g.home.score ?: "-", style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
+                        Text(
+                            g.away.score ?: "-",
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            softWrap = false,
+                        )
+                        Text(
+                            " – ",
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            softWrap = false,
+                        )
+                        Text(
+                            g.home.score ?: "-",
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            softWrap = false,
+                        )
                     }
                 }
                 Spacer(Modifier.height(4.dp))

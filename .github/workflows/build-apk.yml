@@ -1,0 +1,57 @@
+name: Build APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find project folder
+        id: proj
+        run: |
+          f=$(find . -name settings.gradle.kts -not -path './.git/*' | head -n1)
+          if [ -z "$f" ]; then echo "settings.gradle.kts not found - was the whole project uploaded?"; exit 1; fi
+          echo "dir=$(dirname "$f")" >> "$GITHUB_OUTPUT"
+          echo "Project folder: $(dirname "$f")"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK
+        working-directory: ${{ steps.proj.outputs.dir }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon assembleDebug
+          mkdir -p "$GITHUB_WORKSPACE/out"
+          cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/out/HoopsLive-debug.apk"
+
+      - name: Build release APK (smaller)
+        continue-on-error: true
+        working-directory: ${{ steps.proj.outputs.dir }}
+        run: |
+          ./gradlew --no-daemon assembleRelease
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/out/HoopsLive.apk"
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: HoopsLive-apk
+          path: out/*.apk
+
+      - name: Publish GitHub release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/*.apk

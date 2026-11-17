@@ -127,7 +127,7 @@ private fun DateStrip(selected: LocalDate, today: LocalDate, onSelect: (LocalDat
         ) {
             itemsIndexed(days) { _, d ->
                 val isSel = d == selected
-                val bg = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainer
+                val bg = if (isSel) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant
                 val fg = if (isSel) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -241,7 +241,7 @@ private fun StatusBlock(g: Game) {
             Text(
                 g.seriesNote,
                 style = MaterialTheme.typography.labelSmall,
-                color = Color(0xFF8AB4F8),
+                color = MaterialTheme.colorScheme.primary,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
             )

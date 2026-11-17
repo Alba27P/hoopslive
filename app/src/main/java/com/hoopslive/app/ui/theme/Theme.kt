@@ -11,47 +11,62 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val Accent = Color(0xFFFF7A1A)
-val LiveRed = Color(0xFFE5383B)
-val WinGreen = Color(0xFF2EB872)
-val LossRed = Color(0xFFE5484D)
-val PlayoffGreen = Color(0xFF2EB872)
-val PlayInOrange = Color(0xFFFFA62B)
+// Palette: plant green + light apricot-beige, with cream, apricot, espresso and terracotta accents.
+val PlantGreen = Color(0xFF3E6B3A)
+val PlantGreenLight = Color(0xFF8DBF84)
+val Beige = Color(0xFFF5EADD)
+val Cream = Color(0xFFFCF6EF)
+val Apricot = Color(0xFFE9D3BC)
+val Espresso = Color(0xFF3B2A1F)
+val Terracotta = Color(0xFFC2502E)
 
-private val DarkColors = darkColorScheme(
-    primary = Accent,
-    onPrimary = Color(0xFF1A0D00),
-    secondary = Color(0xFF8AB4F8),
-    background = Color(0xFF0D1117),
-    onBackground = Color(0xFFE6EDF3),
-    surface = Color(0xFF0D1117),
-    onSurface = Color(0xFFE6EDF3),
-    surfaceVariant = Color(0xFF1B222C),
-    onSurfaceVariant = Color(0xFF9AA7B4),
-    surfaceContainer = Color(0xFF151B23),
-    surfaceContainerHigh = Color(0xFF1B222C),
-    surfaceContainerHighest = Color(0xFF232B36),
-    surfaceContainerLow = Color(0xFF12171F),
-    outline = Color(0xFF39424E),
-    outlineVariant = Color(0xFF262E39),
-)
+val Accent = PlantGreen
+val LiveRed = Terracotta
+val WinGreen = PlantGreen
+val LossRed = Terracotta
+val PlayoffGreen = PlantGreen
+val PlayInOrange = Color(0xFFD4A373)
 
 private val LightColors = lightColorScheme(
-    primary = Color(0xFFE0620A),
+    primary = PlantGreen,
     onPrimary = Color.White,
-    secondary = Color(0xFF1F5FBF),
-    background = Color(0xFFF5F7FA),
-    onBackground = Color(0xFF0F1720),
-    surface = Color(0xFFF5F7FA),
-    onSurface = Color(0xFF0F1720),
-    surfaceVariant = Color(0xFFE9EDF2),
-    onSurfaceVariant = Color(0xFF55606D),
-    surfaceContainer = Color(0xFFFFFFFF),
-    surfaceContainerHigh = Color(0xFFF0F3F7),
-    surfaceContainerHighest = Color(0xFFE6EAF0),
-    surfaceContainerLow = Color(0xFFFFFFFF),
-    outline = Color(0xFFC3CBD5),
-    outlineVariant = Color(0xFFDDE3EA),
+    secondary = PlantGreen,
+    onSecondary = Color.White,
+    secondaryContainer = PlantGreen,
+    onSecondaryContainer = Color.White,
+    background = Beige,
+    onBackground = Espresso,
+    surface = Beige,
+    onSurface = Espresso,
+    surfaceVariant = Apricot,
+    onSurfaceVariant = Color(0xFF8A7461),
+    surfaceContainer = Cream,
+    surfaceContainerLow = Cream,
+    surfaceContainerHigh = Color(0xFFF0E2D2),
+    surfaceContainerHighest = Apricot,
+    outline = Color(0xFFCDB49B),
+    outlineVariant = Apricot,
+)
+
+private val DarkColors = darkColorScheme(
+    primary = PlantGreenLight,
+    onPrimary = Color(0xFF10200F),
+    secondary = PlantGreenLight,
+    onSecondary = Color(0xFF10200F),
+    secondaryContainer = PlantGreen,
+    onSecondaryContainer = Color.White,
+    background = Color(0xFF121B15),
+    onBackground = Beige,
+    surface = Color(0xFF121B15),
+    onSurface = Beige,
+    surfaceVariant = Color(0xFF2A3A2F),
+    onSurfaceVariant = Color(0xFFB8A592),
+    surfaceContainer = Color(0xFF1B271F),
+    surfaceContainerLow = Color(0xFF1B271F),
+    surfaceContainerHigh = Color(0xFF213027),
+    surfaceContainerHighest = Color(0xFF2A3A2F),
+    outline = Color(0xFF4A5B4E),
+    outlineVariant = Color(0xFF26342A),
 )
 
 private val AppTypography = Typography().let { t ->

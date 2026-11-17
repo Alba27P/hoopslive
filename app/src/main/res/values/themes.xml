@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.HoopsLive" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/splash_bg</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
-    <color name="splash_bg">#0D1117</color>
-    <color name="ic_launcher_background">#0D1117</color>
+    <color name="splash_bg">#F5EADD</color>
+    <color name="ic_launcher_background">#F5EADD</color>
 </resources>
